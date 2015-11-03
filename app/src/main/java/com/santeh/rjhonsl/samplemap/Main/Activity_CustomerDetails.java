@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -55,6 +56,9 @@ public class Activity_CustomerDetails extends FragmentActivity {
     TextView txtmiddlename, txtfirstname, txtlastname, txtbirthday, txtfarmid, txtBirthPlace, txtHouseNumber, txtStreet, txtSubdivision,
                 txtBarangay, txtCity, txtProvince, txthouseStatus, txttelePhone, txtCellphone, txtSpouseFname, txtSpouseMname, txtSpouseLname,
                 txtSpouseBirthday, title, txtCivilStatus;
+
+    TextView lblFarmId, lblFullName, lblBirthDetails, lblAddress, lblHouseStatus, lblTelephone, lblCellphone, lblCivilStatus, lblSpouseFullname, lblSpouseBirthday;
+    LinearLayout llFarmId, llFullName, llBirthDetails, llAddress, llHouseStatus, llTelephone, llCellphone, llCivilStatus, llSpouseFullname, llSpouseBirthday;
     int userlvl;
 
 
@@ -99,6 +103,29 @@ public class Activity_CustomerDetails extends FragmentActivity {
         txtSpouseLname = (TextView) findViewById(R.id.txt_S_LastName);
         txtSpouseMname = (TextView) findViewById(R.id.txt_S_MiddleName);
         txtSpouseBirthday = (TextView) findViewById(R.id.txt_S_Birthday);
+
+        lblFarmId = (TextView) findViewById(R.id.lbl_farmid);
+        lblFullName = (TextView) findViewById(R.id.lbl_fullname);
+        lblBirthDetails = (TextView) findViewById(R.id.lbl_BirthDetails);
+        lblAddress = (TextView) findViewById(R.id.lbl_address);
+        lblHouseStatus = (TextView) findViewById(R.id.lbl_houseStatus);
+        lblTelephone = (TextView) findViewById(R.id.lbl_telephone);
+        lblCellphone = (TextView) findViewById(R.id.lbl_cellphone);
+        lblCivilStatus = (TextView) findViewById(R.id.lbl_civilStatus);
+        lblSpouseFullname = (TextView) findViewById(R.id.lbl_Spousefullname);
+        lblSpouseBirthday = (TextView) findViewById(R.id.lbl_spouseBirthday);
+
+        llFarmId = (LinearLayout) findViewById(R.id.ll_farmID);
+        llFullName = (LinearLayout) findViewById(R.id.ll_fullname);
+        llBirthDetails = (LinearLayout) findViewById(R.id.ll_birthDetails);
+        llAddress = (LinearLayout) findViewById(R.id.ll_address);
+        llHouseStatus = (LinearLayout) findViewById(R.id.ll_houseStatus);
+        llTelephone = (LinearLayout) findViewById(R.id.ll_telephone);
+        llCellphone = (LinearLayout) findViewById(R.id.ll_cellphone);
+        llCivilStatus = (LinearLayout) findViewById(R.id.ll_civilStatus);
+        llSpouseFullname = (LinearLayout) findViewById(R.id.ll_spouseFullname);
+        llSpouseBirthday = (LinearLayout) findViewById(R.id.ll_spouseBirthday);
+
 
 
 
@@ -161,30 +188,46 @@ public class Activity_CustomerDetails extends FragmentActivity {
         txtfarmid.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
+                return editFarmID();
+            }
+        });
 
-                final Dialog d = Helper.createCustomDialogThemedYesNO_WithEditText(activity, "Enter Farm ID", txtfarmid.getText().toString(), "Edit", "CANCEL", "SAVE", R.color.blue);
-                EditText edt = (EditText) d.findViewById(R.id.dialog_edttext);
-                Button cancel = (Button) d.findViewById(R.id.btn_dialog_yesno_opt1);
-                Button save = (Button) d.findViewById(R.id.btn_dialog_yesno_opt2);
+        lblFarmId.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return editFarmID();
+            }
+        });
 
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        d.hide();
-                    }
-                });
-
-                save.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        d.hide();
-                    }
-                });
-                return false;
+        llFarmId.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return editFarmID();
             }
         });
     }
 
+    private boolean editFarmID() {
+        final Dialog d = Helper.createCustomDialogThemedYesNO_WithEditText(activity, "Enter Farm ID", txtfarmid.getText().toString(), "Edit", "CANCEL", "SAVE", R.color.blue);
+        EditText edt = (EditText) d.findViewById(R.id.dialog_edttext);
+        Button cancel = (Button) d.findViewById(R.id.btn_dialog_yesno_opt1);
+        Button save = (Button) d.findViewById(R.id.btn_dialog_yesno_opt2);
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                d.hide();
+            }
+        });
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                d.hide();
+            }
+        });
+        return false;
+    }
 
 
     private void toggleEditPressed() {

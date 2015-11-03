@@ -62,6 +62,8 @@
             <LinearLayout android:layout_width="fill_parent"
                           android:layout_height="wrap_content"
                           android:paddingLeft="20dp"
+                          android:id="@+id/ll_farmID"
+                          android:background="@drawable/bg_material_transparent_oval_greypressed"
                           android:paddingRight="20dp"
                           android:paddingTop="10dp"
                           android:paddingBottom="10dp"
@@ -70,11 +72,12 @@
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:textSize="17dp"
+                          android:id="@+id/lbl_farmid"
                           android:textColor="@color/gray_900"
                           android:text="Farm ID" />
 
 
-                <LinearLayout android:layout_width="fill_parent"
+                <LinearLayout android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
                               android:orientation="horizontal"
                               android:paddingTop="3dp"
@@ -88,6 +91,7 @@
 
                         <TextView android:layout_width="wrap_content"
                                   android:layout_height="wrap_content"
+
                                   android:textColor="@color/gray_500"
                                   android:id="@+id/txtFarmid"
                                   android:text="FF0001" />
@@ -122,12 +126,14 @@
                           android:paddingLeft="20dp"
                           android:paddingRight="20dp"
                           android:paddingTop="10dp"
+                          android:id="@+id/ll_fullname"
                           android:paddingBottom="10dp"
                 android:orientation="vertical">
 
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:textSize="17dp"
+                          android:id="@+id/lbl_fullname"
                           android:textColor="@color/gray_900"
                           android:text="Full Name" />
 
@@ -190,6 +196,7 @@
 
             <LinearLayout android:layout_width="fill_parent"
                           android:layout_height="wrap_content"
+                          android:id="@+id/ll_birthDetails"
                           android:paddingLeft="20dp"
                           android:paddingRight="20dp"
                           android:paddingTop="10dp"
@@ -199,6 +206,7 @@
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:textSize="17dp"
+                          android:id="@+id/lbl_BirthDetails"
                           android:textColor="@color/gray_900"
                           android:text="Birthday/Birth Place" />
 
@@ -242,6 +250,7 @@
 
             <LinearLayout android:layout_width="fill_parent"
                           android:layout_height="wrap_content"
+                          android:id="@+id/ll_address"
                           android:paddingLeft="20dp"
                           android:paddingRight="20dp"
                           android:paddingTop="10dp"
@@ -251,6 +260,7 @@
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:textSize="17dp"
+                          android:id="@+id/lbl_address"
                           android:textColor="@color/gray_900"
                           android:text="Address" />
 
@@ -317,6 +327,7 @@
 
             <LinearLayout android:layout_width="fill_parent"
                           android:layout_height="wrap_content"
+                          android:id="@+id/ll_houseStatus"
                           android:paddingLeft="20dp"
                           android:paddingRight="20dp"
                           android:paddingTop="10dp"
@@ -326,6 +337,7 @@
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:textSize="17dp"
+                          android:id="@+id/lbl_houseStatus"
                           android:textColor="@color/gray_900"
                           android:text="House Status" />
 
@@ -372,6 +384,7 @@
 
 
             <LinearLayout android:layout_width="fill_parent"
+                          android:id="@+id/ll_telephone"
                           android:layout_height="wrap_content"
                           android:paddingLeft="20dp"
                           android:paddingRight="20dp"
@@ -382,6 +395,7 @@
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:textSize="17dp"
+                      android:id="@+id/lbl_telephone"
                       android:textColor="@color/gray_900"
                       android:text="Telephone" />
 
@@ -414,6 +428,7 @@
 
             <LinearLayout android:layout_width="fill_parent"
                           android:layout_height="wrap_content"
+                          android:id="@+id/ll_cellphone"
                           android:paddingLeft="20dp"
                           android:paddingRight="20dp"
                           android:paddingTop="10dp"
@@ -422,6 +437,7 @@
 
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
+                          android:id="@+id/lbl_cellphone"
                           android:textSize="17dp"
                           android:textColor="@color/gray_900"
                           android:text="Cellphone" />
@@ -442,7 +458,7 @@
                                   android:layout_height="wrap_content"
                                   android:textColor="@color/gray_500"
                                   android:id="@+id/txtCellphone"
-                                  android:text="09159231467" />
+                                  android:text="09151234567" />
 
                     </LinearLayout>
 
@@ -476,6 +492,7 @@
 
             <LinearLayout android:layout_width="fill_parent"
                           android:layout_height="wrap_content"
+                          android:id="@+id/ll_civilStatus"
                           android:paddingLeft="20dp"
                           android:paddingRight="20dp"
                           android:paddingTop="10dp"
@@ -485,6 +502,7 @@
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:textSize="17dp"
+                          android:id="@+id/lbl_civilStatus"
                           android:textColor="@color/gray_900"
                           android:text="Civil Status" />
 
@@ -514,6 +532,7 @@
 
             <LinearLayout android:layout_width="fill_parent"
                           android:layout_height="wrap_content"
+                          android:id="@+id/ll_spouseFullname"
                           android:paddingLeft="20dp"
                           android:paddingRight="20dp"
                           android:paddingTop="10dp"
@@ -522,6 +541,7 @@
 
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
+                          android:id="@+id/lbl_Spousefullname"
                           android:textSize="17dp"
                           android:textColor="@color/gray_900"
                           android:text="Spouse Full Name" />
@@ -574,6 +594,7 @@
 
             <LinearLayout android:layout_width="fill_parent"
                           android:layout_height="wrap_content"
+                          android:id="@+id/ll_spouseBirthday"
                           android:paddingLeft="20dp"
                           android:paddingRight="20dp"
                           android:paddingTop="10dp"
@@ -582,6 +603,7 @@
 
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
+                          android:id="@+id/lbl_spouseBirthday"
                           android:textSize="17dp"
                           android:textColor="@color/gray_900"
                           android:text="Spouse Birthday" />
