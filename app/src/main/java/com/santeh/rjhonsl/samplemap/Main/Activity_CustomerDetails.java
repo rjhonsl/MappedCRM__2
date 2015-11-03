@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -19,6 +20,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.fourmob.datetimepicker.date.DatePickerDialog;
 import com.santeh.rjhonsl.samplemap.APIs.MyVolleyAPI;
 import com.santeh.rjhonsl.samplemap.DBase.GpsDB_Query;
 import com.santeh.rjhonsl.samplemap.DBase.GpsSQLiteHelper;
@@ -35,7 +37,7 @@ import java.util.Map;
 /**
  * Created by rjhonsl on 10/30/2015.
  */
-public class Activity_CustomerDetails extends FragmentActivity {
+public class Activity_CustomerDetails extends FragmentActivity implements DatePickerDialog.OnDateSetListener{
 
     Activity activity;
     Context context;
@@ -45,9 +47,14 @@ public class Activity_CustomerDetails extends FragmentActivity {
 
     ImageButton btn_titleLeft, btn_titleRight;
 
+    public static final String DATEPICKER_TAG = "datepicker";
+    DatePickerDialog datePickerDialog;
+
     GpsDB_Query db;
     String id;
     ProgressDialog PD;
+
+    EditText birthday;
 
     boolean isEditPressed = false;
 
@@ -60,6 +67,7 @@ public class Activity_CustomerDetails extends FragmentActivity {
     TextView lblFarmId, lblFullName, lblBirthDetails, lblAddress, lblHouseStatus, lblTelephone, lblCellphone, lblCivilStatus, lblSpouseFullname, lblSpouseBirthday;
     LinearLayout llFarmId, llFullName, llBirthDetails, llAddress, llHouseStatus, llTelephone, llCellphone, llCivilStatus, llSpouseFullname, llSpouseBirthday;
     int userlvl;
+    private int dd, mm, yyyy;
 
 
     @Override
@@ -136,8 +144,6 @@ public class Activity_CustomerDetails extends FragmentActivity {
                 showAllCustomerLocation();
             }
         }
-        txtmiddlename.setText(id);
-
 
         btn_titleLeft.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,41 +197,244 @@ public class Activity_CustomerDetails extends FragmentActivity {
                 return editFarmID();
             }
         });
-
         lblFarmId.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 return editFarmID();
             }
         });
-
         llFarmId.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 return editFarmID();
             }
         });
+
+        lblFullName.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return editFullName();
+            }
+        });
+        llFullName.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return editFullName();
+            }
+        });
+
+
+        lblBirthDetails.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return editBirthDetails();
+            }
+        });
+        llBirthDetails.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return editBirthDetails();
+            }
+        });
+
+        lblAddress.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return editAddress();
+            }
+        });
+
+        llAddress.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                return editAddress();
+            }
+        });
+
     }
 
     private boolean editFarmID() {
-        final Dialog d = Helper.createCustomDialogThemedYesNO_WithEditText(activity, "Enter Farm ID", txtfarmid.getText().toString(), "Edit", "CANCEL", "SAVE", R.color.blue);
-        EditText edt = (EditText) d.findViewById(R.id.dialog_edttext);
-        Button cancel = (Button) d.findViewById(R.id.btn_dialog_yesno_opt1);
-        Button save = (Button) d.findViewById(R.id.btn_dialog_yesno_opt2);
+        if (isEditPressed){
+            final Dialog d = Helper.createCustomDialogThemedYesNO_WithEditText(activity, "Enter new Farm ID:", txtfarmid.getText().toString(), "Edit", "CANCEL", "SAVE", R.color.blue);
+            final EditText edt = (EditText) d.findViewById(R.id.dialog_edttext);
+            Button cancel = (Button) d.findViewById(R.id.btn_dialog_yesno_opt1);
+            Button save = (Button) d.findViewById(R.id.btn_dialog_yesno_opt2);
+            Helper.setCursorOnEnd(edt);
 
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                d.hide();
-            }
-        });
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    d.hide();
+                }
+            });
 
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                d.hide();
-            }
-        });
+            save.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    txtfarmid.setText(edt.getText() + "");
+                    d.hide();
+                }
+            });
+        }
+        return false;
+    }
+
+
+    private boolean editFullName() {
+        if (isEditPressed){
+            final Dialog d = new Dialog(activity);//
+            d.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            d.setContentView(R.layout.dialog_material_themed_changefullname);//Set the xml view of the dialog
+            Button cancel = (Button) d.findViewById(R.id.btn_dialog_yesno_opt1);
+            Button save = (Button) d.findViewById(R.id.btn_dialog_yesno_opt2);
+            final EditText edtfname = (EditText) d.findViewById(R.id.edt_dialog_firstName);
+            final EditText edtlname = (EditText) d.findViewById(R.id.edt_dialog_LastName);
+            final EditText edtmname = (EditText) d.findViewById(R.id.edt_dialog_middleName);
+
+            TextView txttitle = (TextView) d.findViewById(R.id.dialog_yesno_title);
+
+            edtfname.setText(txtfirstname.getText()+"");
+            edtlname.setText(txtlastname.getText()+"");
+            edtmname.setText(txtmiddlename.getText() + "");
+
+            txttitle.setText("Edit");
+            txttitle.setBackground(activity.getResources().getDrawable(R.color.skyblue_500));
+            cancel.setText("CANCEL");
+            save.setText("SAVE");
+            d.show();
+
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    d.hide();
+                }
+            });
+
+            save.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    txtfirstname.setText(edtfname.getText()+"");
+                    txtmiddlename.setText(edtmname.getText() + "");
+                    txtlastname.setText(edtlname.getText()+"");
+                    d.hide();
+                }
+            });
+        }
+        return false;
+    }
+
+
+    private boolean editBirthDetails() {
+        if (isEditPressed){
+            final Dialog d = new Dialog(activity);//
+            d.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            d.setContentView(R.layout.dialog_material_themed_changebirthdetails);//Set the xml view of the dialog
+            Button cancel = (Button) d.findViewById(R.id.btn_dialog_yesno_opt1);
+            Button save = (Button) d.findViewById(R.id.btn_dialog_yesno_opt2);
+            birthday = (EditText) d.findViewById(R.id.edt_dialog_Birthday);
+            final EditText birthPlace = (EditText) d.findViewById(R.id.edt_dialog_BirthPlace);
+
+            TextView txttitle = (TextView) d.findViewById(R.id.dialog_yesno_title);
+
+            birthday.setText(txtbirthday.getText() + "");
+            birthPlace.setText(txtBirthPlace.getText()+"");
+
+            String[] splitter = txtbirthday.getText().toString().split("-");
+            int year = Integer.parseInt(splitter[0]);
+            int month = Integer.parseInt(splitter[1]);
+            int day = Integer.parseInt(splitter[2]);
+            datePickerDialog = DatePickerDialog.newInstance(this, year, month-1, day);
+
+            txttitle.setText("Edit");
+            txttitle.setBackground(activity.getResources().getDrawable(R.color.skyblue_500));
+            cancel.setText("CANCEL");
+            save.setText("SAVE");
+            d.show();
+
+            birthday.setFocusable(false);
+            birthday.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    datePickerDialog.setYearRange(1910, 2037);
+                    datePickerDialog.show(getSupportFragmentManager(), DATEPICKER_TAG);
+                }
+            });
+
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    d.hide();
+                }
+            });
+
+            save.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    txtBirthPlace.setText(birthPlace.getText()+"");
+                    txtbirthday.setText(birthday.getText() + "");
+                    d.hide();
+                }
+            });
+        }
+        return false;
+    }
+
+
+
+    private boolean editAddress() {
+        if (isEditPressed){
+            final Dialog d = new Dialog(activity);//
+            d.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            d.setContentView(R.layout.dialog_material_themed_changeaddress);//Set the xml view of the dialog
+            Button cancel = (Button) d.findViewById(R.id.btn_dialog_yesno_opt1);
+            Button save = (Button) d.findViewById(R.id.btn_dialog_yesno_opt2);
+
+            final EditText edtHouseNum = (EditText) d.findViewById(R.id.edt_dialog_houseNumber);
+            final EditText edtStreet = (EditText) d.findViewById(R.id.edt_dialog_Street);
+            final EditText edtSubdivision = (EditText) d.findViewById(R.id.edt_dialog_Subdivision);
+            final EditText edtBarangay = (EditText) d.findViewById(R.id.edt_dialog_Barangay);
+            final EditText edtCity  = (EditText) d.findViewById(R.id.edt_dialog_city);
+            final EditText edtProvince = (EditText) d.findViewById(R.id.edt_dialog_province);
+
+            TextView txttitle = (TextView) d.findViewById(R.id.dialog_yesno_title);
+
+            edtHouseNum.setText(txtHouseNumber.getText() + "");
+            edtStreet.setText(txtStreet.getText() + "");
+            edtSubdivision.setText(txtSubdivision.getText() + "");
+            edtBarangay.setText(txtBarangay.getText() + "");
+            edtCity.setText(txtCity.getText() + "");
+            edtProvince.setText(txtProvince.getText() + "");
+
+
+            txttitle.setText("Edit");
+            txttitle.setBackground(activity.getResources().getDrawable(R.color.skyblue_500));
+            cancel.setText("CANCEL");
+            save.setText("SAVE");
+            d.show();
+
+
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    d.hide();
+                }
+            });
+
+            save.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    txtHouseNumber.setText(edtHouseNum.getEditableText().toString());
+                    txtStreet.setText(edtStreet.getEditableText().toString());
+                    txtSubdivision.setText(edtSubdivision.getEditableText().toString());
+                    txtBarangay.setText(edtBarangay.getEditableText().toString());
+                    txtCity.setText(edtCity.getEditableText().toString());
+                    txtProvince.setText(edtProvince.getEditableText().toString());
+                    setViewVisibilities();
+                    d.hide();
+                }
+            });
+        }
         return false;
     }
 
@@ -379,8 +588,12 @@ public class Activity_CustomerDetails extends FragmentActivity {
         txtSpouseBirthday.setText(custInfoObject.getSpouse_birthday()+"");
 
 
+        setViewVisibilities();
 
-        if (custInfoObject.getSubdivision().equalsIgnoreCase(" --- ") ){
+    }
+
+    private void setViewVisibilities() {
+        if (custInfoObject.getSubdivision().equalsIgnoreCase(" --- ")){
             txtSubdivision.setVisibility(View.GONE);
         }else{
             txtSubdivision.setVisibility(View.VISIBLE);
@@ -403,7 +616,6 @@ public class Activity_CustomerDetails extends FragmentActivity {
         }else{
             txtSpouseMname.setVisibility(View.VISIBLE);
         }
-
     }
 
 
@@ -429,11 +641,48 @@ public class Activity_CustomerDetails extends FragmentActivity {
             yes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    d.hide();finish();
+                    d.hide();
+                    finish();
                 }
             });
         }else{
             finish();
         }
+    }
+
+    @Override
+    public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
+        setYyyy(year);
+        setDd(day);
+        setMm(month + 1);
+        if (birthday!=null){
+            birthday.setText(year +"-"+( month + 1)+ "-" + day);
+        }
+
+    }
+
+    public int getDd() {
+
+        return dd;
+    }
+
+    public void setDd(int dd) {
+        this.dd = dd;
+    }
+
+    public int getMm() {
+        return mm;
+    }
+
+    public void setMm(int mm) {
+        this.mm = mm;
+    }
+
+    public int getYyyy() {
+        return yyyy;
+    }
+
+    public void setYyyy(int yyyy) {
+        this.yyyy = yyyy;
     }
 }

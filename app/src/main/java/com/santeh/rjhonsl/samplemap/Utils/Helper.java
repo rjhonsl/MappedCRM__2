@@ -697,6 +697,10 @@ public class Helper {
 
     }
 
+    public static void setCursorOnEnd(EditText edt) {
+        edt.setSelection(edt.getText().length());
+    }
+
     public static void toastLong(Activity context, String msg){
 
         LayoutInflater inflater = context.getLayoutInflater();
